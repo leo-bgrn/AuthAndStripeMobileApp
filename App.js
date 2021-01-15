@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from "react";
+import { PersistGate } from "redux-persist/es/integration/react";
+import { persistStore } from "redux-persist";
+import Store from "./App/Store/configureStore";
+import { Provider } from "react-redux";
+import EStyleSheet from "react-native-extended-stylesheet";
+import { Dimensions } from "react-native";
+import Navigator from './App/Navigator'
 
-export default function App() {
+const entireScreenWidth = Dimensions.get("window").width;
+EStyleSheet.build({ $rem: entireScreenWidth / 380 });
+
+const App = () => {
+  let persistor = persistStore(Store);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={Store}>
+      <PersistGate persistor={persistor}>
+        <Navigator />
+      </PersistGate>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
