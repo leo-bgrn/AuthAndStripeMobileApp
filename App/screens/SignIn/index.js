@@ -23,7 +23,6 @@ const SignIn = ({ dispatch, navigation }) => {
     try {
       // const res = await login(email, password);
       const res = await login("bongiorno.leo@gmail.com", "mypassword");
-      console.log("User token created: " + res);
       await validateUserToken(res);
       setTimeout(() => dispatch({ type: "RESTORE_TOKEN", token: res }), 1000);
     } catch (error) {

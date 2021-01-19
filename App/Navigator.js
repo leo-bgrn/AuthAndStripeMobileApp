@@ -39,10 +39,6 @@ const Navigator = ({ dispatch }) => {
     }
   }, []);
 
-  console.log(
-    "Navigator, isLoading : " + isLoading + ", isSignOut:" + isSignOut
-  );
-
   if (isLoading) {
     return <Splash />;
   }

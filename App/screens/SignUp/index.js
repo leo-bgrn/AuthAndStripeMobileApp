@@ -12,6 +12,11 @@ import {
 import { connect } from "react-redux";
 import { styles } from "./styles";
 import { Icon } from "react-native-elements";
+import {
+  register,
+  login,
+  validateUserToken,
+} from "../../services/Authentication";
 
 const SignUp = ({ dispatch, navigation }) => {
   const [email, setEmail] = useState("");
@@ -20,9 +25,26 @@ const SignUp = ({ dispatch, navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const onPressSignUp = () => {
-    const action = { type: "SET_USER_TOKEN", value: email };
-    dispatch(action);
+  const onPressSignUp = async () => {
+    dispatch({ type: "LOGGING_IN" });
+    try {
+      await register(
+        "bongiorno.leo@gmail.com",
+        "Léo",
+        "BONGIORNO",
+        "mypassword",
+        "mypassword"
+      );
+      const res = await login("bongiorno.leo@gmail.com", "mypassword");
+      await validateUserToken(res);
+      setTimeout(() => dispatch({ type: "RESTORE_TOKEN", token: res }), 1000);
+    } catch (error) {
+      setTimeout(() => dispatch({ type: "SIGN_OUT" }), 1000);
+      console.warn(error);
+      alert(
+        "An error occurred while register. Please try again or contact us."
+      );
+    }
   };
 
   const onPressBack = () => {
