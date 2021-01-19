@@ -11,8 +11,9 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import { styles } from "./styles";
+import { Icon } from "react-native-elements";
 
-const SignUp = ({ dispatch }) => {
+const SignUp = ({ dispatch, navigation }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -24,6 +25,11 @@ const SignUp = ({ dispatch }) => {
     dispatch(action);
   };
 
+  const onPressBack = () => {
+    console.log("Pressed BAck button");
+    navigation.navigate("SignIn");
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: "#FEFEFE" }}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -33,53 +39,66 @@ const SignUp = ({ dispatch }) => {
             flex: 1,
           }}
         >
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View style={styles.mainContainer}>
-              <View style={styles.signUpContainer}>
-                <Text style={styles.signUpText}>Sign Up</Text>
+          <>
+            <TouchableOpacity
+              style={styles.backIconContainer}
+              onPress={onPressBack}
+            >
+              <Icon
+                name="chevron-back-outline"
+                type="ionicon"
+                size={35}
+                style={styles.backIcon}
+              />
+            </TouchableOpacity>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <View style={styles.mainContainer}>
+                <View style={styles.signUpContainer}>
+                  <Text style={styles.signUpText}>Sign Up</Text>
+                </View>
+                <TextInput
+                  style={styles.textInput}
+                  placeholderTextColor="#A9A9A9"
+                  placeholder="Email Address"
+                  onChangeText={setEmail}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  placeholderTextColor="#A9A9A9"
+                  placeholder="First name"
+                  onChangeText={setFirstName}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  placeholderTextColor="#A9A9A9"
+                  placeholder="Last name"
+                  onChangeText={setLastName}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  placeholderTextColor="#A9A9A9"
+                  placeholder="Password"
+                  secureTextEntry={true}
+                  onChangeText={setPassword}
+                />
+                <TextInput
+                  style={styles.textInput}
+                  placeholderTextColor="#A9A9A9"
+                  placeholder="Confirm password"
+                  secureTextEntry={true}
+                  onChangeText={setConfirmPassword}
+                />
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    onPress={onPressSignUp}
+                    style={styles.signUpButtonContainer}
+                  >
+                    <Text style={styles.signUpButtonText}>Sign Up</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <TextInput
-                style={styles.textInput}
-                placeholderTextColor="#A9A9A9"
-                placeholder="Email Address"
-                onChangeText={setEmail}
-              />
-              <TextInput
-                style={styles.textInput}
-                placeholderTextColor="#A9A9A9"
-                placeholder="First name"
-                onChangeText={setFirstName}
-              />
-              <TextInput
-                style={styles.textInput}
-                placeholderTextColor="#A9A9A9"
-                placeholder="Last name"
-                onChangeText={setLastName}
-              />
-              <TextInput
-                style={styles.textInput}
-                placeholderTextColor="#A9A9A9"
-                placeholder="Password"
-                secureTextEntry={true}
-                onChangeText={setPassword}
-              />
-              <TextInput
-                style={styles.textInput}
-                placeholderTextColor="#A9A9A9"
-                placeholder="Confirm password"
-                secureTextEntry={true}
-                onChangeText={setConfirmPassword}
-              />
-              <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  onPress={onPressSignUp}
-                  style={styles.signUpButtonContainer}
-                >
-                  <Text style={styles.signUpButtonText}>Sign Up</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback>
+          </>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>

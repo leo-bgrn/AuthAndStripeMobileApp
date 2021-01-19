@@ -40,4 +40,11 @@ export const styles = EStyleSheet.create({
     justifyContent: "center",
     marginTop: "10rem",
   },
+  backIcon: {},
+  backIconContainer: {
+    position: "absolute",
+    top: "10rem",
+    left: "10rem",
+    zIndex: 1,
+  },
 });

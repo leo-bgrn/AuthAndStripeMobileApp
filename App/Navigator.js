@@ -1,23 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { connect, useSelector } from "react-redux";
 import Home from "./screens/Home/index";
 import SignIn from "./screens/SignIn/index";
 import SignUp from "./screens/SignUp/index";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import Splash from "./screens/Splash";
 
-const Navigator = () => {
-  const userToken = useSelector((state) => state.setUserToken.userToken);
-  console.log(userToken);
-  const isSignedIn = userToken ? true : false;
+import { validateUserToken } from "./services/Authentication";
+
+const Navigator = ({ dispatch }) => {
+  const userToken = useSelector((state) => state.loginReducer.userToken);
+  const isLoading = useSelector((state) => state.loginReducer.isLoading);
+  const isSignOut = useSelector((state) => state.loginReducer.isSignOut);
   const Stack = createStackNavigator();
 
+  async function checkUserToken() {
+    try {
+      await validateUserToken(userToken);
+      setTimeout(
+        () => dispatch({ type: "RESTORE_TOKEN", token: userToken }),
+        1000
+      );
+    } catch (error) {
+      setTimeout(() => {
+        dispatch({ type: "SIGN_OUT" });
+        alert("An error occurred while login. Please try again or contact us.");
+      }, 1000);
+      console.warn(error);
+    }
+  }
+
+  useEffect(() => {
+    if (userToken) {
+      dispatch({ type: "LOGGING_IN" });
+      checkUserToken();
+    }
+  }, []);
+
+  console.log(
+    "Navigator, isLoading : " + isLoading + ", isSignOut:" + isSignOut
+  );
+
+  if (isLoading) {
+    return <Splash />;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {isSignedIn ? (
-          <Stack.Screen name="Home" component={Home} />
-        ) : (
+        {isSignOut ? (
           <>
             <Stack.Screen
               name="SignIn"
@@ -37,6 +69,8 @@ const Navigator = () => {
               }}
             />
           </>
+        ) : (
+          <Stack.Screen name="Home" component={Home} />
         )}
       </Stack.Navigator>
     </NavigationContainer>

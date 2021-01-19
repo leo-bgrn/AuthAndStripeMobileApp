@@ -1,6 +1,5 @@
 import { createStore } from "redux";
-import setUserToken from "./Reducers/loginReducer";
-
+import loginReducer from "./Reducers/loginReducer";
 import { persistCombineReducers } from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -9,5 +8,5 @@ const rootPersistConfig = {
   storage: AsyncStorage,
 };
 export default createStore(
-  persistCombineReducers(rootPersistConfig, { setUserToken })
+  persistCombineReducers(rootPersistConfig, { loginReducer })
 );

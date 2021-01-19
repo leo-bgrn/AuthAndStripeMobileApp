@@ -4,11 +4,10 @@ import { styles } from "./styles";
 import { connect, useSelector } from "react-redux";
 
 const Home = ({ dispatch }) => {
-  const userToken = useSelector((state) => state.setUserToken.userToken);
+  const userToken = useSelector((state) => state.loginReducer.userToken);
 
   const logout = () => {
-    const action = { type: "SET_USER_TOKEN", value: undefined };
-    dispatch(action);
+    dispatch({ type: "SIGN_OUT" });
   };
 
   return (

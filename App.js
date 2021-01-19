@@ -5,7 +5,7 @@ import Store from "./App/Store/configureStore";
 import { Provider } from "react-redux";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { Dimensions } from "react-native";
-import Navigator from './App/Navigator'
+import Navigator from "./App/Navigator";
 
 const entireScreenWidth = Dimensions.get("window").width;
 EStyleSheet.build({ $rem: entireScreenWidth / 380 });
