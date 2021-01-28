@@ -34,12 +34,39 @@ const Home = ({ dispatch }) => {
     <SafeAreaView style={styles.mainContainer}>
       <>
         <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>Profile</Text>
+          <Text style={styles.titleText}>My Profile</Text>
         </View>
-        <Text>{email}</Text>
-        <Text>{firstName}</Text>
-        <Text>{lastName}</Text>
-        <View style={{ marginTop: 40, height: 40 }}>
+        <View style={styles.contentContainer}>
+          <View style={styles.titlesContainer}>
+            <View style={styles.lineContainer}>
+              <Text style={styles.titleText}>Email</Text>
+            </View>
+            <View style={styles.lineContainer}>
+              <Text style={styles.titleText}>First Name</Text>
+            </View>
+            <View style={styles.lineContainer}>
+              <Text style={styles.titleText}>Last Name</Text>
+            </View>
+          </View>
+          <View style={styles.contentsContainer}>
+            <View style={styles.lineContainer}>
+              <View style={styles.elementContainer}>
+                <Text>{email}</Text>
+              </View>
+            </View>
+            <View style={styles.lineContainer}>
+              <View style={styles.elementContainer}>
+                <Text>{firstName}</Text>
+              </View>
+            </View>
+            <View style={styles.lineContainer}>
+              <View style={styles.elementContainer}>
+                <Text>{lastName}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View style={{ height: 40 }}>
           <Button testID="logoutButton" onPress={logout} title="Logout" />
         </View>
       </>
