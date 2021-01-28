@@ -24,7 +24,6 @@ export function register(
     body: JSON.stringify(body),
   }).then((response) => {
     if (response.ok) {
-      console.log("User " + email + " successfully registered");
     } else throw new Error("HTTP response status not code 200 as expected.");
   });
 }
@@ -45,8 +44,6 @@ export function login(email, password) {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
-      console.log("User " + email + " successfully logged");
       return responseJson.token;
     });
 }
@@ -62,7 +59,61 @@ export function validateUserToken(userToken) {
     },
   }).then((response) => {
     if (response.ok) {
-      console.log("User token validated");
     } else throw new Error("HTTP response status not code 200 as expected.");
   });
+}
+
+export function getInfo(userToken) {
+  const getInfoUrl = URL + "/me";
+  return fetch(getInfoUrl, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + userToken,
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("HTTP response status not code 200 as expected.");
+    }
+    return response.json();
+  });
+}
+
+export function loginWithGoogle(googleAccessToken) {
+  const loginWithGoogleUrl = URL + "/google";
+  const body = {
+    accessToken: googleAccessToken,
+  };
+  return fetch(loginWithGoogleUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.token;
+    });
+}
+
+export function loginWithFacebook(facebookAccessToken) {
+  const loginWithFacebookUrl = URL + "/facebook";
+  const body = {
+    accessToken: facebookAccessToken,
+  };
+  return fetch(loginWithFacebookUrl, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.token;
+    });
 }

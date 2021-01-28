@@ -48,7 +48,6 @@ const SignUp = ({ dispatch, navigation }) => {
   };
 
   const onPressBack = () => {
-    console.log("Pressed BAck button");
     navigation.navigate("SignIn");
   };
 

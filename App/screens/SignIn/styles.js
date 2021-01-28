@@ -21,8 +21,22 @@ export const styles = EStyleSheet.create({
     borderRadius: "1000rem",
     backgroundColor: "#3ADFF3",
   },
+  googleButtonContainer: {
+    margin: "5rem",
+    padding: "15rem",
+    paddingLeft: "25rem",
+    paddingRight: "25rem",
+    borderRadius: "1000rem",
+    backgroundColor: "#C2C2C2",
+    flexDirection: "row",
+    alignItems: "center",
+  },
   loginButtonText: {
     fontWeight: "bold",
+  },
+  googleButtonText: {
+    fontWeight: "bold",
+    marginLeft: "10rem",
   },
   signInText: {
     fontWeight: "bold",
