@@ -4,6 +4,7 @@ import { connect, useSelector } from "react-redux";
 import Home from "./screens/Home/index";
 import SignIn from "./screens/SignIn/index";
 import SignUp from "./screens/SignUp/index";
+import Payment from "./screens/Payment/index";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Splash from "./screens/Splash";
@@ -66,14 +67,24 @@ const Navigator = ({ dispatch }) => {
             />
           </>
         ) : (
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{
-              title: "Home",
-              headerShown: false,
-            }}
-          />
+          <>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{
+                title: "Home",
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Payment"
+              component={Payment}
+              options={{
+                title: "Payment",
+                headerShown: false,
+              }}
+            />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

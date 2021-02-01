@@ -6,7 +6,7 @@ import { connect, useSelector } from "react-redux";
 import { getInfo } from "../../services/Authentication";
 import { SafeAreaView } from "react-native";
 
-const Home = ({ dispatch }) => {
+const Home = ({ dispatch, navigation }) => {
   const userToken = useSelector((state) => state.loginReducer.userToken);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -28,6 +28,10 @@ const Home = ({ dispatch }) => {
 
   const logout = () => {
     dispatch({ type: "SIGN_OUT" });
+  };
+
+  const requestPayment = () => {
+    navigation.navigate("Payment");
   };
 
   return (
@@ -65,6 +69,9 @@ const Home = ({ dispatch }) => {
               </View>
             </View>
           </View>
+        </View>
+        <View style={{ height: 40 }}>
+          <Button onPress={requestPayment} title="Make a payment" />
         </View>
         <View style={{ height: 40 }}>
           <Button testID="logoutButton" onPress={logout} title="Logout" />
